@@ -31,13 +31,20 @@ const UserHeader = () => {
           </Text>
           <Flex gap={2} alignItems={'center'}>
             <Text fontSize={'sm'}>markzuckerberg</Text>
-            <Text fontSize={'xl'} bg={'gray.dark'} color={'gray.light'} p={1} borderRadius={'full'}>
+            <Text fontSize={'xs'} bg={'gray.dark'} color={'gray.light'} p={1} borderRadius={'full'}>
               threads.net
             </Text>
           </Flex>
         </Box>
         <Box>
-          <Avatar name="Mark Zuckenberg" src="/zuck-avatar.png" size={'xl'} />
+          <Avatar
+            name="Mark Zuckenberg"
+            src="/zuck-avatar.png"
+            size={{
+              base: 'md',
+              md: 'xl',
+            }}
+          />
         </Box>
       </Flex>
 
