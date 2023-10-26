@@ -21,18 +21,18 @@ cloudinary.config({
   api_secret: process.env.CLOUDINARY_API_SECRET,
 })
 
-app.use(bodyParser.json({ limit: '35mb' }))
+// app.use(bodyParser.json({ limit: '35mb' }))
 
-app.use(
-  bodyParser.urlencoded({
-    extended: true,
-    limit: '35mb',
-    parameterLimit: 50000,
-  })
-)
+// app.use(
+//   bodyParser.urlencoded({
+//     extended: true,
+//     limit: '35mb',
+//     parameterLimit: 50000,
+//   })
+// )
 
 // Middlewares
-app.use(express.json())
+app.use(express.json({ limit: '50mb' }))
 app.use(express.urlencoded({ extended: true }))
 app.use(cookieParser())
 

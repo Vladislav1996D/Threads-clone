@@ -10,6 +10,7 @@ export default function LoginCard() {
   const [showPassword, setShowPassword] = useState(false)
   const setAuthScreen = useSetRecoilState(authScreenAtom)
   const setUser = useSetRecoilState(userAtom)
+  const [loading, setLoading] = useState(false)
 
   const [inputs, setInputs] = useState({
     username: '',
@@ -18,6 +19,7 @@ export default function LoginCard() {
   const showToast = useShowToast()
 
   const handleLogin = async () => {
+    setLoading(true)
     try {
       const res = await fetch('/api/users/login', {
         method: 'POST',
@@ -38,6 +40,8 @@ export default function LoginCard() {
       setUser(data)
     } catch (error) {
       showToast('Eroor', error, 'error')
+    } finally {
+      setLoading(false)
     }
   }
 
@@ -83,7 +87,8 @@ export default function LoginCard() {
                 _hover={{
                   bg: useColorModeValue('gray.700', 'gray.600'),
                 }}
-                onClick={handleLogin}>
+                onClick={handleLogin}
+                isLoading={loading}>
                 Login
               </Button>
             </Stack>
