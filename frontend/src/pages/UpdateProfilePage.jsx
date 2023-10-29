@@ -56,7 +56,7 @@ export default function UpdateProfilePage() {
           <Heading lineHeight={1.1} fontSize={{ base: '2xl', sm: '3xl' }}>
             User Profile Edit
           </Heading>
-          <FormControl id="userName">
+          <FormControl>
             <Stack direction={['column', 'row']} spacing={6}>
               <Center>
                 <Avatar size="xl" boxShadow={'md'} src={imgUrl || user.profilePicture} />
