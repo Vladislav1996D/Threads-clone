@@ -10,7 +10,6 @@ import { useState } from 'react'
 import useShowToast from '../hooks/useShowToast'
 
 const UserHeader = ({ user }) => {
-  console.log(user)
   const toast = useToast()
   const currentUser = useRecoilValue(userAtom)
   const [following, setFollowing] = useState(user.followers.includes(currentUser?._id))
@@ -64,8 +63,6 @@ const UserHeader = ({ user }) => {
       }
 
       setFollowing(!following)
-
-      console.log(data)
     } catch (error) {
       showToast('Error', error, 'error')
     } finally {

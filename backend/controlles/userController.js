@@ -1,8 +1,9 @@
-import User from '../models/userModel.js'
 import bcrypt from 'bcryptjs'
 import generateTokenAndSetCookie from '../utils/helpers/genTokenAndSetCookie.js'
 import { v2 as cloudinary } from 'cloudinary'
 import mongoose from 'mongoose'
+import Post from '../models/postModel.js'
+import User from '../models/userModel.js'
 
 const getUserProfile = async (req, res) => {
   const { query } = req.params
@@ -176,6 +177,17 @@ const updateUser = async (req, res) => {
     user.bio = bio || user.bio
 
     user = await user.save()
+
+    await Post.updateMany(
+      { 'replies.userId': userId },
+      {
+        $set: {
+          'replies.$[reply].username': user.username,
+          'replies.$[reply].userProfilePicture': user.profilePicture,
+        },
+      },
+      { arrayFilters: [{ 'reply.userId': userId }] }
+    )
 
     user.password = null
 

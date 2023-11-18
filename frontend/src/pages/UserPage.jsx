@@ -5,12 +5,14 @@ import useShowToast from '../hooks/useShowToast'
 import UserHeader from '../components/UserHeader'
 import Post from '../components/Post'
 import useGetUserProfile from '../hooks/useGetUserProfile'
+import { useRecoilState } from 'recoil'
+import postsAtom from '../atoms/postsAtom'
 
 const UserPage = () => {
   const { user, loading } = useGetUserProfile()
   const { username } = useParams()
   const showToast = useShowToast()
-  const [posts, setPosts] = useState([])
+  const [posts, setPosts] = useRecoilState(postsAtom)
   const [fetchingPosts, setFetchingPosts] = useState(true)
 
   useEffect(() => {
@@ -18,7 +20,9 @@ const UserPage = () => {
       setFetchingPosts(true)
       try {
         const res = await fetch(`/api/posts/user/${username}`)
+
         const data = await res.json()
+
         setPosts(data)
       } catch (error) {
         showToast('Error', error.message, 'error')
@@ -29,7 +33,7 @@ const UserPage = () => {
     }
 
     getPosts()
-  }, [username, showToast])
+  }, [username, showToast, setPosts])
 
   if (!user && loading) {
     return (
