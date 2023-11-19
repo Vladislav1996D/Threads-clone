@@ -183,7 +183,7 @@ const updateUser = async (req, res) => {
       {
         $set: {
           'replies.$[reply].username': user.username,
-          'replies.$[reply].userProfilePicture': user.profilePicture,
+          'replies.$[reply].userProfilePic': user.profilePicture,
         },
       },
       { arrayFilters: [{ 'reply.userId': userId }] }
